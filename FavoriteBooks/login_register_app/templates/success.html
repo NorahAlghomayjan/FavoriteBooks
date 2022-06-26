@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+{% block content %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<div class="col">
+    <h1>Success welcome, {{user.first_name}} !</h1>
+    <h2>successfuly registered or logged in </h2>
+</div>
+<div class="col">
+    <a href="/logout/{{user.id}}"> Logout</a>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col m-5">
+    <h2 class="text-start">ADD a A favorite Book</h2>
+    <form action="/books/addBook" method="post" class="row text-start mt-5">
+        {% csrf_token %}
+        <label class="col col-3">Title:</label>
+        <input type="text" name="title" class="col" value='{{book_title}}'>
+
+        <div class="w-100 mt-3"></div>
+
+        <label class="col col-3">Description:</label>
+        <textarea name="desc" class="col" rows="5">{{book_desc}}</textarea>
+
+        <div class="w-100 mt-3"></div>
+        <div class="col  text-center"><button type="submit" class="col col-4">Add</button></div>
+
+    </form>
+</div>
+<div class="col m-5">
+    <h2 class="text-start">All Books</h2>
+    <ul>
+        {% for dict in allBooks %}
+        <li>
+            <a href="/books/{{dict.book.id}}">
+                <h3>{{dict.book.title}}</h3>
+            </a>
+            <h4>(added by: {{dict.book.uploaded_by.first_name}} {{dict.book.uploaded_by.last_name}})</h4>
+            {% if dict.result == 0 %}
+            <p class="em">this is one of your favorites</p>
+            {% else %}
+            <a href="/books/favorite/{{dict.book.id}}"><p class="em">add to your favorite</p></a>
+            {% endif %}
+        </li>
+        <br>
+        {% endfor %}
+    </ul>
+
+</div>
+
+{% endblock %}
